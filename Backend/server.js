@@ -29,14 +29,6 @@ app.use('/api/requests', requestRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/roles', roleRoutes);
 
-// servir frontend estático en produccion
-if (process.env.NODE_ENV === 'production') {
-  const distPath = path.join(__dirname, '../frontend/dist');
-  app.use(express.static(distPath));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
-  });
-}
 
 // Middleware para manejo de errores global (opcional)
 app.use((err, req, res, next) => {
