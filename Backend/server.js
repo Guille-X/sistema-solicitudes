@@ -15,7 +15,10 @@ const roleRoutes = require('./routes/roleRoutes');
 dotenv.config();
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL, // la URL pública del frontend
+  credentials: true
+}));
 app.use(express.json());
 
 // Rutas
