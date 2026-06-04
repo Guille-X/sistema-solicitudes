@@ -78,11 +78,20 @@ exports.createRequest = async (req, res) => {
     });
 
     // Enviar correo al usuario que creó la solicitud (o al administrador)
-    await enviarCorreo(
-      requestWithData.User.email,
-      'Solicitud registrada exitosamente',
-      `<h3>Nueva solicitud: ${titulo}</h3><p>Descripción: ${descripcion}</p><p>Estado: pendiente</p>`
-    );
+  await enviarCorreo(
+  requestWithData.User.email,
+  'Solicitud registrada exitosamente',
+  `
+    <h2 style="color:#2c3e50;">Nueva solicitud registrada</h2>
+    <p><strong>Título:</strong> ${titulo}</p>
+    <p><strong>Descripción:</strong> ${descripcion}</p>
+    <p><strong>Estado:</strong> 
+      <span style="background-color:#f39c12; color:white; padding:4px 8px; border-radius:4px;">
+        pendiente
+      </span>
+    </p>
+  `
+);
 
     res.status(201).json(newRequest);
   } catch (error) {
@@ -104,12 +113,21 @@ exports.updateRequest = async (req, res) => {
     await request.save();
 
     // Notificar al usuario creador sobre el cambio de estado
-    const usuario = await User.findByPk(request.usuario_id);
-    await enviarCorreo(
-      usuario.email,
-      `Actualización de solicitud #${request.id}`,
-      `<p>La solicitud "${request.titulo}" ha cambiado a estado: ${request.estado}</p>`
-    );
+  const usuario = await User.findByPk(request.usuario_id);
+  await enviarCorreo(
+    usuario.email,
+    `Actualización de solicitud #${request.id}`,
+  `
+    <h2 style="color:#2980b9;">Actualización de solicitud</h2>
+    <p>La solicitud <strong>"${request.titulo}"</strong> ha cambiado de estado a:</p>
+    <p>
+      <span style="background-color:#27ae60; color:white; padding:4px 8px; border-radius:4px;">
+        ${request.estado}
+      </span>
+    </p>
+  `
+);
+
 
     res.json({ message: 'Solicitud actualizada.' });
   } catch (error) {
