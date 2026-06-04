@@ -1,26 +1,27 @@
-const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
 
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST,
-  port: process.env.EMAIL_PORT,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
+// Configura la API Key de SendGrid desde variables de entorno
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+/**
+ * Enviar correo con SendGrid
+ * @param {string} destinatario - Dirección de correo del receptor
+ * @param {string} asunto - Asunto del correo
+ * @param {string} contenidoHtml - Contenido HTML del correo
+ */
 const enviarCorreo = async (destinatario, asunto, contenidoHtml) => {
+  const msg = {
+    to: destinatario,
+    from: process.env.EMAIL_FROM, // remitente verificado en SendGrid
+    subject: asunto,
+    html: contenidoHtml,
+  };
+
   try {
-    await transporter.sendMail({
-      from: `"Sistema Interno" <${process.env.EMAIL_USER}>`,
-      to: destinatario,
-      subject: asunto,
-      html: contenidoHtml,
-    });
+    await sgMail.send(msg);
     console.log(`Correo enviado a ${destinatario}`);
   } catch (error) {
-    console.error('Error enviando correo:', error);
+    console.error('Error enviando correo:', error.response?.body || error.message);
   }
 };
 
