@@ -1,8 +1,20 @@
 # Sistema de Gestión de Solicitudes Internas - Cooperativa INTERCOP RL
 
-## Descripción
+[![Demo en vivo](https://img.shields.io/badge/Demo_en_vivo-Azure-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)](https://nice-beach-056ffe810.5.azurestaticapps.net/login)
 
 Sistema web moderno para administrar solicitudes internas de colaboradores. Permite registrar, dar seguimiento, gestionar usuarios y categorías, enviar notificaciones automáticas por correo y visualizar estadísticas mediante dashboard. Incluye control de acceso por roles (admin, operador, consulta), filtros avanzados, eliminación lógica y diseño responsivo.
+
+## 🌐 Demo en vivo
+
+Puedes probar la versión demo del sistema, desplegada en Microsoft Azure, aquí:
+
+**URL de la demo:** [https://nice-beach-056ffe810.5.azurestaticapps.net/login](https://nice-beach-056ffe810.5.azurestaticapps.net/login)
+
+> **Nota:** La demo requiere credenciales:  
+> Usuario: `admin@example.com`  
+> Contraseña: `admin123`
+
+> **Importante:** La primera vez que inicies sesión, el sistema puede tardar unos segundos en responder. Esto se debe a que la demo está desplegada en modo **serverless** y el servicio entra en reposo cuando no se usa, por lo que el primer acceso puede experimentar un tiempo de espera adicional (*cold start*).
 
 ## Tecnologías
 
